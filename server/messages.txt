@@ -1,0 +1,1 @@
+{"results":[{"username":"sdfgs","text":"sdf","roomname":"","createdAt":1437774073570,"objectId":0},{"username":"sdfgs","text":"34","roomname":"","createdAt":1437774075362,"objectId":1},{"username":"sdfgs","text":"sdfsdf","roomname":"","createdAt":1437774079410,"objectId":2}],"id":3}

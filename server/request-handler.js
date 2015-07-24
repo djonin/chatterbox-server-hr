@@ -11,6 +11,9 @@ this file and include it in basic-server.js so that it actually works.
 *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html.
 
 **************************************************************/
+var fs = require('fs');
+var url = require('url');
+
 
 var requestHandler = function(request, response) {
   // Request and Response come from node's http module.
@@ -28,10 +31,8 @@ var requestHandler = function(request, response) {
   // debugging help, but you should always be careful about leaving stray
   // console.logs in your code.
   console.log("Serving request type " + request.method + " for url " + request.url);
-
   // The outgoing status.
   var statusCode = 200;
-
   // See the note below about CORS headers.
   var headers = defaultCorsHeaders;
 
@@ -43,16 +44,41 @@ var requestHandler = function(request, response) {
 
   // .writeHead() writes to the request line and headers of the response,
   // which includes the status and all headers.
-  response.writeHead(statusCode, headers);
+  var end = '';
 
-  // Make sure to always call response.end() - Node may not send
-  // anything back to the client until you do. The string you pass to
-  // response.end() will be the body of the response - i.e. what shows
-  // up in the browser.
-  //
-  // Calling .end "flushes" the response's internal buffer, forcing
-  // node to actually send all the data over to the client.
-  response.end("Hello, World!");
+  if(request.method === 'POST') {
+    statusCode = 201;
+    var messageObj = JSON.parse(fs.readFileSync('messages.txt'));
+    request.on('data', function(data) {
+      var msg = JSON.parse(data);
+      msg['createdAt'] = (new Date()).getTime();
+      msg['objectId'] = messageObj.id++;
+      if(!msg.roomname) {
+        msg.roomname = '';
+      }
+      messageObj.results.push(msg);
+      fs.writeFile('messages.txt', JSON.stringify(messageObj));
+    });
+  }
+  else if(request.method === 'GET') {
+    headers['Content-Type'] = "application/json";
+    var messageObj = JSON.parse(fs.readFileSync('messages.txt'));
+    var url_parts = url.parse(request.url, true);
+    var orderBy = url_parts.query.order;
+    if(orderBy) {
+      var opposite = orderBy[0] === '-';
+      if(opposite) {
+        orderBy = orderBy.substring(1);
+      }
+      messageObj.results.sort(function(a, b) {
+        return (opposite ? a[orderBy] < b[orderBy] : a[orderBy] > b[orderBy]);
+      });
+    }
+    end = JSON.stringify(messageObj);
+  } else {
+  }
+  response.writeHead(statusCode, headers);
+  response.end(end);
 };
 
 module.exports.requestHandler = requestHandler;

@@ -1,0 +1,46 @@
+
+> chatterbox@0.0.1 test /Users/ebc/Desktop/container/2015-07-chatterbox-server-condensed
+> mocha server/spec
+
+Listening on http://127.0.0.1:3000
+
+[0m[0m
+[0m  server[0m
+Serving request type OPTIONS for url /classes/messages?order=-createdAt
+Serving request type GET for url /classes/messages
+Serving request type GET for url /classes/messages?order=-createdAt
+  [32m  ✓[0m[90m should respond to GET requests for /log with a 200 status code [0m
+Serving request type GET for url /classes/messages
+  [32m  ✓[0m[90m should send back parsable stringified JSON [0m
+Serving request type GET for url /classes/messages
+  [32m  ✓[0m[90m should send back an object [0m
+Serving request type GET for url /classes/messages
+  [32m  ✓[0m[90m should send an object containing a `results` array [0m
+Serving request type POST for url /classes/messages
+  [32m  ✓[0m[90m should accept POST requests to /send [0m
+Serving request type POST for url /classes/messages
+Serving request type GET for url /classes/messages
+  [31m  1) should respond with messages that were previously posted[0m
+Serving request type GET for url /arglebargle
+  [31m  2) Should 404 when asked for a nonexistent file[0m
+
+[0m  Node Server Request Listener Function[0m
+Serving request type GET for url /classes/room1
+  [32m  ✓[0m[90m Should answer GET requests for /classes/room with a 200 status code [0m
+Serving request type GET for url /classes/room1
+  [32m  ✓[0m[90m Should send back parsable stringified JSON [0m
+Serving request type GET for url /classes/room1
+  [32m  ✓[0m[90m Should send back an object [0m
+Serving request type GET for url /classes/room1
+  [32m  ✓[0m[90m Should send an object containing a `results` array [0m
+Serving request type POST for url /classes/room1
+  [32m  ✓[0m[90m Should accept posts to /classes/room [0m
+Serving request type POST for url /classes/room1
+Serving request type GET for url /classes/room1
+  [31m  3) Should respond with messages that were previously posted[0m
+Serving request type GET for url /arglebargle
+  [32m  ✓[0m[90m Should 404 when asked for a nonexistent file [0m
+
+
+[92m [0m[32m 11 passing[0m[90m (82ms)[0m
+

@@ -76,7 +76,7 @@ $(function() {
           if (!data.results || !data.results.length) { return; }
 
           // Get the last message
-          var mostRecentMessage = data.results[data.results.length-1];
+          var mostRecentMessage = data.results[0];
           var displayedRoom = $('.chat span').first().data('roomname');
 
           // Only bother updating the DOM if we have a new message

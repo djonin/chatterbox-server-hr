@@ -60,7 +60,7 @@ describe('Node Server Request Listener Function', function() {
   it('Should accept posts to /classes/room', function() {
     var stubMsg = {
       username: 'Jono',
-      message: 'Do my bidding!'
+      text: 'Do my bidding!'
     };
     var req = new stubs.request('/classes/room1', 'POST', stubMsg);
     var res = new stubs.response();
@@ -79,7 +79,7 @@ describe('Node Server Request Listener Function', function() {
 it('Should respond with messages that were previously posted', function() {
     var stubMsg = {
       username: 'Jono',
-      message: 'Do my bidding!'
+      text: 'Do my bidding!'
     };
     var req = new stubs.request('/classes/room1', 'POST', stubMsg);
     var res = new stubs.response();
